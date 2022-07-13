@@ -10,4 +10,23 @@ When implementing a new feature or fixing a bug, please create a new pull reques
 
 ## First setup
 
-**[TODO 05/01/2018 @vanessa-cooper]:** _It's been a while since anyone ran a fresh copy of this repo. I think it's worth documenting the steps needed to install and run the repo on a new machine?_
+### Download Docker
+
+Here is a good place to look: https://www.docker.com/products/docker-desktop/
+
+### Start the docker environment
+
+`docker-compose up`
+
+### Check the backend
+
+Visit http://localhost:3000/api/ping
+
+### Check the frontend
+
+Visit http://localhost:3001/register
+
+### Troubleshooting
+
+- If the page returns an empty response, you may need to watch the docker logs.
+  Sometimes, visiting the page will start the server and then take a moment to appear.
