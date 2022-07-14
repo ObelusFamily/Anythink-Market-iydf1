@@ -8,6 +8,7 @@ import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   APPLY_TAG_FILTER,
+  APPLY_TITLE_FILTER,
 } from "../../constants/actionTypes";
 
 const Promise = global.Promise;
@@ -16,6 +17,7 @@ const mapStateToProps = (state) => ({
   ...state.home,
   appName: state.common.appName,
   token: state.common.token,
+  titleFilter: state.itemList.title || '',
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,6 +26,8 @@ const mapDispatchToProps = (dispatch) => ({
   onLoad: (tab, pager, payload) =>
     dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
   onUnload: () => dispatch({ type: HOME_PAGE_UNLOADED }),
+  setTitleFilter: (title) =>
+    dispatch({ type: APPLY_TITLE_FILTER, title })
 });
 
 class Home extends React.Component {
@@ -42,10 +46,21 @@ class Home extends React.Component {
     this.props.onUnload();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.titleFilter !== this.props.titleFilter) {
+      const fetch = (page) => agent.Items.all(page, this.props.titleFilter)
+      this.props.onLoad(
+        "all",
+        fetch,
+        Promise.all([agent.Tags.getAll(), fetch()])
+      )
+    }
+  }
+
   render() {
     return (
       <div className="home-page">
-        <Banner />
+        <Banner titleFilter={this.props.titleFilter} setTitleFilter={this.props.setTitleFilter} />
 
         <div className="container page">
           <Tags tags={this.props.tags} onClickTag={this.props.onClickTag} />
