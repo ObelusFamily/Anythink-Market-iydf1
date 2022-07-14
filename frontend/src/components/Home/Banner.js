@@ -8,9 +8,12 @@ const Banner = ({ titleFilter, setTitleFilter }) => {
         <img src={logo} alt="banner" />
         <div>
           <span id="get-part">A place to get</span>
-          <input id="search-box" placeholder="What is it you truly desire?"
+          <input
+            id="search-box"
+            placeholder="What is it you truly desire?"
             value={titleFilter}
-            onChange={e => setTitleFilter(e.target.value)} />
+            onChange={(e) => setTitleFilter(e.target.value)}
+          />
           <span> the cool stuff.</span>
         </div>
       </div>

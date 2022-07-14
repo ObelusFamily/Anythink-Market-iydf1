@@ -85,7 +85,7 @@ const reducer = (state = {}, action) => {
       return {
         ...state,
         title: action.title,
-      }
+      };
     default:
       return state;
   }
